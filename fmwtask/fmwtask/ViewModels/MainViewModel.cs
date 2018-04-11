@@ -12,7 +12,7 @@ namespace fmwtask.Views
     class MainViewModel:BaseViewModel
     {
         #region Props
-        GunContext gc;// Контекст БД
+        SQLiteRepos sr; //Репозиторий SQLite
         private ObservableCollection<Gun> lwContent; //Контент ListView
         public ObservableCollection<Gun> LwContent
         {
@@ -33,7 +33,7 @@ namespace fmwtask.Views
                 selectedItem = value;
                 OnPropertyChanged("SelectedItem");
 
-                gc.Entry(SelectedItem).State = EntityState.Modified;
+                sr.ModifyState(SelectedItem);
             }
         }
         #endregion
@@ -41,26 +41,21 @@ namespace fmwtask.Views
         public IDelegateCommand SaveChanges { get; set; } //Комманда для сохранения изменений
         void ExecuteSaveChanges(object param)
         {
-            this.gc.SaveChanges();
+            this.sr.Save();
         } //Параметры выполнения комманды SaveChanges
 
         public IDelegateCommand RemoveChanges { get; set; } //Комманда для отката изменений
         void ExecuteRemoveChanges(object param)
         {
-            foreach (DbEntityEntry entry in gc.ChangeTracker.Entries())
-            {
-                if (entry.State == EntityState.Modified)
-                    entry.State = EntityState.Unchanged;
-                SelectedItem = LwContent[0];
-            }
+            this.sr.Retrieve();
+            SelectedItem = LwContent[0];
             
         } //Параметры выполнения комманды RemoveChanges
         #endregion 
         public MainViewModel()
         {
-            gc = new GunContext();
-            List<Gun> buf = gc.Guns.ToList();
-            LwContent = new ObservableCollection<Gun>(buf);
+            sr = new SQLiteRepos();
+            LwContent = new ObservableCollection<Gun>(sr.ReturnList());
             this.SaveChanges = new DelegateCommand(ExecuteSaveChanges);
             this.RemoveChanges = new DelegateCommand(ExecuteRemoveChanges);
             
