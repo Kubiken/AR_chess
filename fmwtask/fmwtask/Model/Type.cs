@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace fmwtask
 {
-    public class Gun
+    class Type
     {
         public long Id { get; set; }
-        public string Model { get; set; }
-        public string Brand { get; set; }
-        public int RoundCal { get; set; }
-        public int Type { get; set; }
+        public string TypeName { get; set; }
     }
 }

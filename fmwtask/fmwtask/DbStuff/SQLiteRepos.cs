@@ -9,33 +9,33 @@ using System.Data.Entity.Infrastructure;
 
 namespace fmwtask
 {
-    class SQLiteRepos
+    class SQLiteRepos<T> where T: class
     {
-        private GunContext gc;
+        private AppContext<T> Context;
 
         public SQLiteRepos() 
         {
-            gc = new GunContext();
+            Context = new AppContext<T>();
         }
 
-        public List<Gun> ReturnList()
+        public List<T> ReturnList()
         {
-            return gc.Guns.ToList();
+            return Context.List.ToList();
         }
 
-        public void ModifyState(Gun g)
+        public void ModifyState(T Obj)
         {
-            gc.Entry(g).State = EntityState.Modified;
+            Context.Entry(Obj).State = EntityState.Modified;
         }
 
         public void Save()
         {
-            gc.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void Retrieve()
         {
-            foreach (DbEntityEntry entry in gc.ChangeTracker.Entries())
+            foreach (DbEntityEntry entry in Context.ChangeTracker.Entries())
             {
                 if (entry.State == EntityState.Modified)
                     entry.State = EntityState.Unchanged;
