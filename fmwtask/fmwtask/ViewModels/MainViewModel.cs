@@ -36,7 +36,7 @@ namespace fmwtask.Views
                 selectedItem = value;
                 OnPropertyChanged("SelectedItem");
 
-                sr.ModifyState(SelectedItem);
+                
                 Type = TypeColl[(int)SelectedItem.Type-1];
                 
             }
@@ -50,7 +50,7 @@ namespace fmwtask.Views
             {
                 type = value;
                 OnPropertyChanged("Type");
-                tr.ModifyState(Type);
+                
             }
         }
         #endregion

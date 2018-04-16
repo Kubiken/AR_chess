@@ -12,20 +12,17 @@ namespace fmwtask
     class SQLiteRepos<T> where T: class
     {
         private AppContext<T> Context;
+        private List<T> ToList;
 
         public SQLiteRepos() 
         {
             Context = new AppContext<T>();
+            ToList = Context.List.ToList();
         }
 
         public List<T> ReturnList()
         {
-            return Context.List.ToList();
-        }
-
-        public void ModifyState(T Obj)
-        {
-            Context.Entry(Obj).State = EntityState.Modified;
+            return ToList;
         }
 
         public void Save()
