@@ -11,18 +11,11 @@ namespace fmwtask
 {
     class SQLiteRepos<T> where T: class
     {
-        private AppContext<T> Context;
-        private List<T> ToList;
+        public AppContext<T> Context;
 
         public SQLiteRepos() 
         {
             Context = new AppContext<T>();
-            ToList = Context.List.ToList();
-        }
-
-        public List<T> ReturnList()
-        {
-            return ToList;
         }
 
         public void Save()
