@@ -76,8 +76,8 @@ namespace fmwtask.Views
             sr = new SQLiteRepos<Gun>();
             tr = new SQLiteRepos<Type>();
 
-            LwContent = new ObservableCollection<Gun>(sr.Context.List.ToList<Gun>());
-            TypeColl = tr.Context.List.ToList<Type>();
+            LwContent = new ObservableCollection<Gun>(sr.Load());
+            TypeColl = tr.Load();
             this.SaveChanges = new DelegateCommand(ExecuteSaveChanges);
             this.RemoveChanges = new DelegateCommand(ExecuteRemoveChanges);
             

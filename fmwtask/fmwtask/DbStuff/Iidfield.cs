@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace fmwtask
 {
-    class Type:IIdfield
+    interface IIdfield
     {
-        public long Id { get; set; }
-        public string TypeName { get; set; }
+        long Id { get; set; }
     }
 }

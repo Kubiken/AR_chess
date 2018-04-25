@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace fmwtask
 {
-    public class Gun
+    public class Gun:IIdfield
     {
         public long Id { get; set; }
         public string Model { get; set; }

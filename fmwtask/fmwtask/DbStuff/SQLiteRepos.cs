@@ -9,9 +9,9 @@ using System.Data.Entity.Infrastructure;
 
 namespace fmwtask
 {
-    class SQLiteRepos<T> where T: class
+    class SQLiteRepos<T> where T:class, IIdfield
     {
-        public AppContext<T> Context;
+        private AppContext<T> Context;
 
         public SQLiteRepos() 
         {
@@ -31,6 +31,28 @@ namespace fmwtask
                     entry.State = EntityState.Unchanged;
 
             }
+        }
+
+        public List<T>Load ()
+        {
+            return Context.List.ToList<T>();
+        }
+
+        public T LoadById (long id)
+        {
+            var obj = Context.List.Where<T>(c => c.Id == id);
+            return (T)obj;
+        }
+
+        public List<T> LoadByLinq(Func<T, bool> filter)
+        {
+            List<T> result = new List<T>();
+            var subres = Context.List.Where(filter);
+            foreach (var obj in subres)
+            {
+                result.Add(obj);
+            }
+            return result;
         }
     }
 }

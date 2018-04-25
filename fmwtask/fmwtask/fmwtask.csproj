@@ -74,6 +74,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\IDelegateCommand.cs" />
+    <Compile Include="DbStuff\Iidfield.cs" />
     <Compile Include="DbStuff\SQLiteRepos.cs" />
     <Compile Include="Model\Type.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

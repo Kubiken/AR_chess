@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace fmwtask
 {
-    class AppContext<T>:DbContext where T: class
+    class AppContext<T> : DbContext where T: class
     {
         public AppContext()
             :base("DbConnection")
