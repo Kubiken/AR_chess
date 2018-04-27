@@ -12,7 +12,10 @@ namespace fmwtask.Views
     class MainViewModel:BaseViewModel
     {
         #region Props
-        GunContext gc;// Контекст БД
+        SQLiteRepos<Gun> sr; //Репозиторий сущностей
+        SQLiteRepos<Type> tr; //Репозиторий типов сущности
+        List<Type> TypeColl;
+
         private ObservableCollection<Gun> lwContent; //Контент ListView
         public ObservableCollection<Gun> LwContent
         {
@@ -33,7 +36,21 @@ namespace fmwtask.Views
                 selectedItem = value;
                 OnPropertyChanged("SelectedItem");
 
-                gc.Entry(SelectedItem).State = EntityState.Modified;
+                
+                Type = TypeColl[(int)SelectedItem.Type-1];
+                
+            }
+        }
+
+        private Type type;
+        public Type Type
+        {
+            get { return type; }
+            set
+            {
+                type = value;
+                OnPropertyChanged("Type");
+                
             }
         }
         #endregion
@@ -41,26 +58,26 @@ namespace fmwtask.Views
         public IDelegateCommand SaveChanges { get; set; } //Комманда для сохранения изменений
         void ExecuteSaveChanges(object param)
         {
-            this.gc.SaveChanges();
+            this.sr.Save();
+            this.tr.Save();
         } //Параметры выполнения комманды SaveChanges
 
         public IDelegateCommand RemoveChanges { get; set; } //Комманда для отката изменений
         void ExecuteRemoveChanges(object param)
         {
-            foreach (DbEntityEntry entry in gc.ChangeTracker.Entries())
-            {
-                if (entry.State == EntityState.Modified)
-                    entry.State = EntityState.Unchanged;
-                SelectedItem = LwContent[0];
-            }
+            this.sr.Retrieve();
+            this.tr.Retrieve();
+            SelectedItem = LwContent[0];
             
         } //Параметры выполнения комманды RemoveChanges
         #endregion 
         public MainViewModel()
         {
-            gc = new GunContext();
-            List<Gun> buf = gc.Guns.ToList();
-            LwContent = new ObservableCollection<Gun>(buf);
+            sr = new SQLiteRepos<Gun>();
+            tr = new SQLiteRepos<Type>();
+
+            LwContent = new ObservableCollection<Gun>(sr.Load());
+            TypeColl = tr.Load();
             this.SaveChanges = new DelegateCommand(ExecuteSaveChanges);
             this.RemoveChanges = new DelegateCommand(ExecuteRemoveChanges);
             

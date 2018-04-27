@@ -7,12 +7,12 @@ using System.Data.Entity;
 
 namespace fmwtask
 {
-    class GunContext:DbContext
+    class AppContext<T> : DbContext where T: class
     {
-        public GunContext()
+        public AppContext()
             :base("DbConnection")
         { }
 
-        public DbSet<Gun> Guns { get; set; }
+        public DbSet<T> List { get; set; }
     }
 }

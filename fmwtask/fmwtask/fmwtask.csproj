@@ -74,6 +74,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\IDelegateCommand.cs" />
+    <Compile Include="DbStuff\Iidfield.cs" />
+    <Compile Include="DbStuff\SQLiteRepos.cs" />
+    <Compile Include="Model\Type.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
@@ -85,7 +88,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Gun.cs" />
-    <Compile Include="DbStuff\GunContext.cs" />
+    <Compile Include="DbStuff\AppContext.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -27,5 +27,7 @@
             <Label Height="23" Content="Модель:"/>
             <Label Height="23" Content="Калибр:"/>
         </StackPanel>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="352,92,0,0" TextWrapping="Wrap" Text="{Binding Type.TypeName}" VerticalAlignment="Top" Width="136"/>
+        <Label Content="Тип:" HorizontalAlignment="Left" Margin="234,87,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
